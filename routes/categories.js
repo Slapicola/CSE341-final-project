@@ -7,6 +7,6 @@ const categoryController = require("../controller/categories");
 router.delete("/category/:categoryid", categoryController.deleteCategory);
 
 //route to create a category
-router.create("/", categoryController.createCategory);
+router.create("/categories", categoryController.createCategory);
 
 module.exports = router;

@@ -1,0 +1,11 @@
+### createProduct
+POST https://cse341-final-project-365b.onrender.com/products HTTP/1.1
+Content-Type: application/json
+
+{
+    "productName": "Smart TV 54 inches",
+    "description": "High-quality smart TV with voice recognition.",
+    "price": 145000,
+    "stock": 100,
+    "createdAt": "2025-11-27T15:05:00Z"
+}
