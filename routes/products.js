@@ -6,4 +6,7 @@ const productsController = require("../controller/products");
 //delete Route for products collection
 router.delete("/product/:productid", productsController.deleteProduct);
 
+//Create Route for products
+router.create("/product/", productsController.createProduct);
+
 module.exports = router;
