@@ -1,6 +1,7 @@
 //We don't have our mongo collections yet
 
 //require statements go up here
+const mongodb = require('../data/database');
 const objectId = require("mongodb").ObjectId;
 
 //Delete function for category collection
@@ -26,4 +27,31 @@ const deleteCategory = async (req, res) => {
   }
 };
 
-module.exports = { deleteCategory };
+const updateCategory = async (req, res) => {
+  try {
+    const categoryId = new objectId(req.params.id);
+    
+    // Will be updated with actual fields
+    const categoryUpdates = req.body;
+
+    const response = await mongodb
+      .getDatabase()
+      .db()
+      .collection('categories')
+      .updateOne({ _id: categoryId }, { $set: categoryUpdates });
+    
+    if (response.matchedCount === 0) {
+      return res.status(404).json({ message: 'Category not found' });
+    }
+
+    if (response.modifiedCount > 0) {
+      res.status(204).send();
+    } else {
+      res.status(200).json({ message: 'No changes made to category' });
+    }
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+module.exports = { deleteCategory, updateCategory };
