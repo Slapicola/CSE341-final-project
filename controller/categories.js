@@ -36,7 +36,7 @@ const createCategory = async (req, res) => {
       createdAt: req.body.createdAt
     }
     const response = await mongodb.getDatabase().db().collection('categories').insertOne(category);
-      if (response.acknowledged > 0) {
+      if (response.acknowledged) {
             res.status(201).send();
         } else {
             res.status(500).json(response.error || 'Some error occurred while creating the category.');
