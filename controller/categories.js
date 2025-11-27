@@ -30,7 +30,7 @@ const createCategory = async (req, res) => {
   try {
     const category = {
       //category fields
-      name: req.body.name,
+      categoryName: req.body.categoryName,
       description: req.body.description,
       createdAt: req.body.createdAt
     }
