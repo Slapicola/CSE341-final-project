@@ -31,9 +31,13 @@ const deleteProduct = async (req, res) => {
 const createProduct = async (req, res) => {
   try {
     const product = {
-    //Product's fields not yet decided
+    //Product fields
 
-    productName: req.body.productName
+    productName: req.body.productName,
+    description: req.body.description,
+    price: req.body.price,
+    stock: req.body.stock,
+    createdAt: req.body.createdAt
   }
   const response = await mongodb.getDatabase().db().collection('products').insertOne(product);
   if (response.acknowledged > 0) {
