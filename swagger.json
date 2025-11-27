@@ -1,0 +1,26 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "E-commerce API",
+    "description": "API documentation for the E-commerce application",
+    "version": "1.0.0"
+  },
+  "host": "localhost:4000",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "summary": "API Health Check",
+        "description": "Returns a message to confirm the server is running",
+        "responses": {
+          "200": {
+            "description": "Server is running successfully"
+          }
+        }
+      }
+    }
+  }
+}
