@@ -6,7 +6,7 @@ const doc = {
         description: 'API documentation for the E-commerce application',
     },
     host: 'localhost:4000',
-    schemes: ['http'],
+    schemes: ['http', 'https'],
 };
 
 const outputFile = './swagger.json';

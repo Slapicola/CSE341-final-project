@@ -5,10 +5,11 @@
     "description": "API documentation for the E-commerce application",
     "version": "1.0.0"
   },
-  "host": "localhost:4000",
+  "host": "cse341-final-project-365b.onrender.com",
   "basePath": "/",
   "schemes": [
-    "http"
+    "http",
+    "https"
   ],
   "paths": {
     "/": {
