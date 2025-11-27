@@ -1,6 +1,7 @@
 //We don't have our mongo collections yet
 
 //require statements go up here
+const mongodb = require('../data/database');
 const objectId = require("mongodb").ObjectId;
 
 //Delete function for category collection

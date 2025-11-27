@@ -40,7 +40,7 @@ const createProduct = async (req, res) => {
     createdAt: req.body.createdAt
   }
   const response = await mongodb.getDatabase().db().collection('products').insertOne(product);
-  if (response.acknowledged > 0) {
+  if (response.acknowledged) {
         res.status(201).send();
     } else {
         res.status(500).json(response.error || 'Some error occurred while creating the product.');
@@ -48,6 +48,33 @@ const createProduct = async (req, res) => {
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
-}
+};
 
-module.exports = { deleteProduct, createProduct };
+const updateProduct = async (req, res) => {
+  try {
+    const productId = new objectId(req.params.id);
+    
+     // Will be updated with actual fields
+    const productUpdates = req.body;
+
+    const response = await mongodb
+      .getDatabase()
+      .db()
+      .collection('products')
+      .updateOne({ _id: productId }, { $set: productUpdates });
+    
+    if (response.matchedCount === 0) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+
+    if (response.modifiedCount > 0) {
+      res.status(204).send();
+    } else {
+      res.status(200).json({ message: 'No changes made to product' });
+    }
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+module.exports = { deleteProduct, createProduct, updateProduct };

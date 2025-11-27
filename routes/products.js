@@ -9,4 +9,7 @@ router.delete("/product/:productid", productsController.deleteProduct);
 //Create Route for products
 router.create("/products", productsController.createProduct);
 
+//Put Route for products collection
+router.put('/:id', productsController.updateProduct);
+
 module.exports = router;
