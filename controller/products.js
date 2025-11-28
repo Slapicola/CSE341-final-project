@@ -5,6 +5,50 @@ const mongodb = require('../data/database');
 //require statements go up here
 const objectId = require("mongodb").ObjectId;
 
+// GET ALL PRODUCTS
+const getAllProducts = async (req, res) => {
+  try {
+    const result = await mongodb
+      .getDatabase()
+      .db()
+      .collection("products")
+      .find()
+      .toArray();
+
+    res.status(200).json(result);
+  } catch (err) {
+    res.status(500).json({
+      message: "Error fetching products",
+      error: err
+    });
+  }
+};
+
+// GET PRODUCT BY ID
+const getProductById = async (req, res) => {
+  try {
+    const productId = new ObjectId(req.params.id);
+
+    const result = await mongodb
+      .getDatabase()
+      .db()
+      .collection("products")
+      .findOne({ _id: productId });
+
+    if (!result) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    res.status(200).json(result);
+  } catch (err) {
+    res.status(500).json({
+      message: "Error fetching product",
+      error: err
+    });
+  }
+};
+
+
 //Delete function for products collection
 const deleteProduct = async (req, res) => {
   try {
@@ -12,7 +56,7 @@ const deleteProduct = async (req, res) => {
     const response = await mongodb
       .getDatabase() //getDatabase and db have already been added to the mongoDB URI
       .db()
-      .collection(products) //Products collections
+      .collection("products") //Products collections
       .deleteOne({ _id: productId });
     if (response.deleteCount > 0) {
       res.status(204).send();
@@ -73,4 +117,4 @@ const updateProduct = async (req, res) => {
   }
 };
 
-module.exports = { deleteProduct, createProduct, updateProduct };
+module.exports = { deleteProduct, createProduct, updateProduct, getAllProducts, getProductById };

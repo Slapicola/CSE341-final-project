@@ -3,6 +3,8 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
+const productRoutes = require('./routes/products');
+const categoryRoutes = require('./routes/categories');
 require('dotenv').config();
 
 const app = express();
@@ -21,6 +23,9 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 }); 
+
+app.use('/products', productRoutes);
+app.use('/categories', categoryRoutes);
 
 
 

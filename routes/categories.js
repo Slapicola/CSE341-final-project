@@ -3,10 +3,15 @@ const router = express.Router();
 
 const categoryController = require("../controller/categories");
 
+
+//GET ALL CATEGORIES AND GET CATEGORY BY ID routes
+router.get("/", categoryController.getAllCategories);
+router.get("/:id", categoryController.getCategoryById);
+
 //delete Route for categories collection
 router.delete("/category/:categoryid", categoryController.deleteCategory);
 
 //Put Route for categories collection
-router.put('/:id', categoriesController.updateCategory);
+router.put('/:id', categoryController.updateCategory);
 
 module.exports = router;
