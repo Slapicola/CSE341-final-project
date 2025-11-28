@@ -1,4 +1,3 @@
-//We don't have our mongo collections yet
 //Mongo collections added - Emmanuel
 const mongodb = require('../data/database');
 
