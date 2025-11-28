@@ -8,7 +8,7 @@ router.get("/", productsController.getAllProducts);
 router.get("/:id", productsController.getProductById);
 
 //delete Route for products collection
-router.delete("/product/:productid", productsController.deleteProduct);
+router.delete("/:id", productsController.deleteProduct);
 
 //Create Route for products
 router.post("/product/", productsController.createProduct);

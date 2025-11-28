@@ -9,7 +9,7 @@ router.get("/", categoryController.getAllCategories);
 router.get("/:id", categoryController.getCategoryById);
 
 //delete Route for categories collection
-router.delete("/category/:categoryid", categoryController.deleteCategory);
+router.delete("/:id", categoryController.deleteCategory);
 
 //Put Route for categories collection
 router.put('/:id', categoryController.updateCategory);
