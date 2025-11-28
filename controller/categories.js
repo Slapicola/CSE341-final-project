@@ -4,6 +4,42 @@
 const mongodb = require('../data/database');
 const objectId = require("mongodb").ObjectId;
 
+
+// --- GET ALL CATEGORIES ---
+const getAllCategories = async (req, res) => {
+  try {
+    const db = mongodb.getDatabase().db();
+    const categories = await db.collection("categories").find().toArray();
+    res.status(200).json(categories);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching categories", error });
+  }
+};
+
+// --- GET CATEGORY BY ID ---
+const getCategoryById = async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    if (!objectId.isValid(id)) {
+      return res.status(400).json({ message: "Invalid category ID" });
+    }
+
+    const db = mongodb.getDatabase().db();
+    const category = await db
+      .collection("categories")
+      .findOne({ _id: new objectId(id) });
+
+    if (!category) {
+      return res.status(404).json({ message: "Category not found" });
+    }
+
+    res.status(200).json(category);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching category", error });
+  }
+};
+
 //Delete function for category collection
 const deleteCategory = async (req, res) => {
   try {
@@ -29,11 +65,35 @@ const deleteCategory = async (req, res) => {
 
 const createCategory = async (req, res) => {
   try {
+<<<<<<< HEAD
     const category = {
       //category fields
       categoryName: req.body.categoryName,
       description: req.body.description,
       createdAt: req.body.createdAt
+=======
+    const categoryId = new objectId(req.params.id);
+    
+    const categoryUpdates = {
+      CategoryName: req.body.CategoryName,
+      description: req.body.description,
+    }
+
+    const response = await mongodb
+      .getDatabase()
+      .db()
+      .collection('categories')
+      .updateOne({ _id: categoryId }, { $set: categoryUpdates });
+    
+    if (response.matchedCount === 0) {
+      return res.status(404).json({ message: 'Category not found' });
+    }
+
+    if (response.modifiedCount > 0) {
+      res.status(204).send();
+    } else {
+      res.status(200).json({ message: 'No changes made to category' });
+>>>>>>> e5fe68b14504edc99d9b51ff78f6c02a648fbabd
     }
     const response = await mongodb.getDatabase().db().collection('categories').insertOne(category);
       if (response.acknowledged) {
@@ -46,4 +106,8 @@ const createCategory = async (req, res) => {
   }
 }
 
+<<<<<<< HEAD
 module.exports = { deleteCategory, createCategory };
+=======
+module.exports = { deleteCategory, updateCategory, getAllCategories, getCategoryById };
+>>>>>>> e5fe68b14504edc99d9b51ff78f6c02a648fbabd
