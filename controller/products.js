@@ -1,5 +1,3 @@
-//We don't have our mongo collections yet
-//Mongo collections added - Emmanuel
 const mongodb = require('../data/database');
 
 //require statements go up here
@@ -75,13 +73,21 @@ const deleteProduct = async (req, res) => {
 const createProduct = async (req, res) => {
   try {
     const product = {
-    //Product's fields not yet decided
+    //Product fields 
 
-    productName: req.body.productName
+    productName: req.body.productName,
+    description: req.body.description,
+    price: req.body.price,
+    stock: req.body.stock,
+    createdAt: new Date()
   }
   const response = await mongodb.getDatabase().db().collection('products').insertOne(product);
   if (response.acknowledged) {
-        res.status(201).send();
+        res.status(201).json({ 
+  message: "Product created successfully",
+  productId: response.insertedId
+});
+
     } else {
         res.status(500).json(response.error || 'Some error occurred while creating the product.');
     } 
