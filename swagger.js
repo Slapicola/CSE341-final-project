@@ -5,7 +5,7 @@ const doc = {
         title: 'E-commerce API',
         description: 'API documentation for the E-commerce application',
     },
-    host: 'localhost:4000',
+    host: 'cse341-final-project-365b.onrender.com',
     schemes: ['http', 'https'],
 };
 

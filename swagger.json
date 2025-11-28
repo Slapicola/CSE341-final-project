@@ -5,338 +5,298 @@
     "description": "API documentation for the E-commerce application",
     "version": "1.0.0"
   },
-  "host": "localhost:4000",
+  "host": "cse341-final-project-365b.onrender.com",
   "basePath": "/",
   "schemes": [
     "http",
     "https"
   ],
-  "tags": [
-    {
-      "name": "Products",
-      "description": "Product management endpoints"
-    },
-    {
-      "name": "Categories",
-      "description": "Category management endpoints"
-    }
-  ],
   "paths": {
     "/": {
       "get": {
-        "summary": "API Health Check",
-        "description": "Returns a message to confirm the server is running",
+        "description": "",
         "responses": {
           "200": {
-            "description": "Server is running successfully"
+            "description": "OK"
           }
         }
       }
     },
-    "/product": {
+    "/product/": {
       "get": {
-        "tags": ["Products"],
-        "summary": "Get all products",
-        "description": "Retrieve a list of all products in the database",
+        "description": "",
         "responses": {
           "200": {
-            "description": "List of products retrieved successfully"
+            "description": "OK"
           },
           "500": {
-            "description": "Internal server error"
+            "description": "Internal Server Error"
           }
         }
       },
       "post": {
-        "tags": ["Products"],
-        "summary": "Create a new product",
-        "description": "Add a new product to the database",
+        "description": "",
         "parameters": [
           {
             "name": "body",
             "in": "body",
-            "description": "Product object",
-            "required": true,
             "schema": {
               "type": "object",
               "properties": {
                 "productName": {
-                  "type": "string",
-                  "example": "Wireless Bluetooth Headset"
+                  "example": "any"
                 },
                 "description": {
-                  "type": "string",
-                  "example": "High-quality over-ear Bluetooth headset with noise cancellation."
+                  "example": "any"
                 },
                 "price": {
-                  "type": "number",
-                  "example": 45000
+                  "example": "any"
                 },
                 "stock": {
-                  "type": "number",
-                  "example": 120
+                  "example": "any"
                 }
-              },
-              "required": ["productName", "price"]
+              }
             }
           }
         ],
         "responses": {
           "201": {
-            "description": "Product created successfully"
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
           },
           "500": {
-            "description": "Internal server error"
+            "description": "Internal Server Error"
           }
         }
       }
     },
     "/product/{id}": {
       "get": {
-        "tags": ["Products"],
-        "summary": "Get a single product",
-        "description": "Retrieve a specific product by ID",
+        "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string",
-            "description": "Product ID"
+            "type": "string"
           }
         ],
         "responses": {
           "200": {
-            "description": "Product retrieved successfully"
+            "description": "OK"
           },
           "404": {
-            "description": "Product not found"
+            "description": "Not Found"
           },
           "500": {
-            "description": "Internal server error"
+            "description": "Internal Server Error"
           }
         }
       },
       "put": {
-        "tags": ["Products"],
-        "summary": "Update a product",
-        "description": "Update an existing product by ID",
+        "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string",
-            "description": "Product ID"
+            "type": "string"
           },
           {
             "name": "body",
             "in": "body",
-            "description": "Updated product object",
-            "required": true,
             "schema": {
               "type": "object",
               "properties": {
                 "productName": {
-                  "type": "string",
-                  "example": "Wireless Bluetooth Headset"
+                  "example": "any"
                 },
                 "description": {
-                  "type": "string",
-                  "example": "High-quality over-ear Bluetooth headset with noise cancellation."
+                  "example": "any"
                 },
                 "price": {
-                  "type": "number",
-                  "example": 45000
+                  "example": "any"
                 },
                 "stock": {
-                  "type": "number",
-                  "example": 120
+                  "example": "any"
                 }
               }
             }
           }
         ],
         "responses": {
+          "200": {
+            "description": "OK"
+          },
           "204": {
-            "description": "Product updated successfully"
+            "description": "No Content"
           },
           "404": {
-            "description": "Product not found"
+            "description": "Not Found"
           },
           "500": {
-            "description": "Internal server error"
-          }
-        }
-      },
-      "delete": {
-        "tags": ["Products"],
-        "summary": "Delete a product",
-        "description": "Remove a product from the database by ID",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "description": "Product ID"
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "Product deleted successfully"
-          },
-          "404": {
-            "description": "Product not found"
-          },
-          "500": {
-            "description": "Internal server error"
+            "description": "Internal Server Error"
           }
         }
       }
     },
-    "/category": {
-      "get": {
-        "tags": ["Categories"],
-        "summary": "Get all categories",
-        "description": "Retrieve a list of all categories",
+    "/product/product/{productid}": {
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "productid",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
-          "200": {
-            "description": "List of categories retrieved successfully"
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request"
           },
           "500": {
-            "description": "Internal server error"
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/category/": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       },
       "post": {
-        "tags": ["Categories"],
-        "summary": "Create a new category",
-        "description": "Add a new category to the database",
+        "description": "",
         "parameters": [
           {
             "name": "body",
             "in": "body",
-            "description": "Category object",
-            "required": true,
             "schema": {
               "type": "object",
               "properties": {
                 "CategoryName": {
-                  "type": "string",
-                  "example": "Electronics"
+                  "example": "any"
                 },
                 "description": {
-                  "type": "string",
-                  "example": "All types of electronic gadgets and accessories."
+                  "example": "any"
                 }
-              },
-              "required": ["CategoryName"]
+              }
             }
           }
         ],
         "responses": {
           "201": {
-            "description": "Category created successfully"
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
           },
           "500": {
-            "description": "Internal server error"
+            "description": "Internal Server Error"
           }
         }
       }
     },
     "/category/{id}": {
       "get": {
-        "tags": ["Categories"],
-        "summary": "Get a single category",
-        "description": "Retrieve a specific category by ID",
+        "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string",
-            "description": "Category ID"
+            "type": "string"
           }
         ],
         "responses": {
           "200": {
-            "description": "Category retrieved successfully"
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
           },
           "404": {
-            "description": "Category not found"
+            "description": "Not Found"
           },
           "500": {
-            "description": "Internal server error"
+            "description": "Internal Server Error"
           }
         }
       },
       "put": {
-        "tags": ["Categories"],
-        "summary": "Update a category",
-        "description": "Update an existing category by ID",
+        "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string",
-            "description": "Category ID"
+            "type": "string"
           },
           {
             "name": "body",
             "in": "body",
-            "description": "Updated category object",
-            "required": true,
             "schema": {
               "type": "object",
               "properties": {
                 "CategoryName": {
-                  "type": "string",
-                  "example": "Electronics"
+                  "example": "any"
                 },
                 "description": {
-                  "type": "string",
-                  "example": "All types of electronic gadgets and accessories."
+                  "example": "any"
                 }
               }
             }
           }
         ],
         "responses": {
+          "200": {
+            "description": "OK"
+          },
           "204": {
-            "description": "Category updated successfully"
+            "description": "No Content"
           },
           "404": {
-            "description": "Category not found"
+            "description": "Not Found"
           },
           "500": {
-            "description": "Internal server error"
+            "description": "Internal Server Error"
           }
         }
-      },
+      }
+    },
+    "/category/category/{categoryid}": {
       "delete": {
-        "tags": ["Categories"],
-        "summary": "Delete a category",
-        "description": "Remove a category from the database by ID",
+        "description": "",
         "parameters": [
           {
-            "name": "id",
+            "name": "categoryid",
             "in": "path",
             "required": true,
-            "type": "string",
-            "description": "Category ID"
+            "type": "string"
           }
         ],
         "responses": {
           "204": {
-            "description": "Category deleted successfully"
+            "description": "No Content"
           },
-          "404": {
-            "description": "Category not found"
+          "400": {
+            "description": "Bad Request"
           },
           "500": {
-            "description": "Internal server error"
+            "description": "Internal Server Error"
           }
         }
       }
