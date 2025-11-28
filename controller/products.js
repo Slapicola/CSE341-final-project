@@ -94,8 +94,12 @@ const updateProduct = async (req, res) => {
   try {
     const productId = new objectId(req.params.id);
     
-     // Will be updated with actual fields
-    const productUpdates = req.body;
+    const productUpdates = {
+      productName: req.body.productName,
+      description: req.body.description,
+      price: req.body.price,
+      stock: req.body.stock,
+    }
 
     const response = await mongodb
       .getDatabase()

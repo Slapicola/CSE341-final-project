@@ -1,11 +1,11 @@
 ### GET ALL PRODUCTS
-GET http://localhost:4000/products
+GET http://localhost:4000/product
 
 ### GET PRODUCT BY ID
-GET http://localhost:4000/products/ID_AQUI
+GET http://localhost:4000/product/ID_AQUI
 
 ### GET ALL CATEGORIES
-GET http://localhost:4000/categories
+GET http://localhost:4000/category
 
 ### GET CATEGORY BY ID
-GET http://localhost:4000/categories/ID_AQUI
+GET http://localhost:4000/category/ID_AQUI

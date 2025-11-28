@@ -67,8 +67,10 @@ const updateCategory = async (req, res) => {
   try {
     const categoryId = new objectId(req.params.id);
     
-    // Will be updated with actual fields
-    const categoryUpdates = req.body;
+    const categoryUpdates = {
+      CategoryName: req.body.CategoryName,
+      description: req.body.description,
+    }
 
     const response = await mongodb
       .getDatabase()
