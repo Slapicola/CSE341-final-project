@@ -40,6 +40,30 @@ const getCategoryById = async (req, res) => {
   }
 };
 
+//Create function for categories
+const createCategory = async(req, res) => {
+  try {
+      const category = {
+      //Category fields 
+      CategoryName: req.body.CategoryName,
+      description: req.body.description,
+      createdAt: new Date()
+    }
+    const response = await mongodb.getDatabase().db().collection('categories').insertOne(category);
+    if (response.acknowledged) {
+          res.status(201).json({ 
+    message: "Category created successfully",
+    productId: response.insertedId
+  });
+
+    } else {
+        res.status(500).json(response.error || 'Some error occurred while creating the category.');
+    } 
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};
+
 //Delete function for category collection
 const deleteCategory = async (req, res) => {
   try {
@@ -92,4 +116,4 @@ const updateCategory = async (req, res) => {
   }
 };
 
-module.exports = { deleteCategory, updateCategory, getAllCategories, getCategoryById };
+module.exports = { deleteCategory, createCategory, updateCategory, getAllCategories, getCategoryById };
