@@ -10,8 +10,8 @@ router.get("/:id", productsController.getProductById);
 //delete Route for products collection
 router.delete("/:id", productsController.deleteProduct);
 
-//Create Route for products
-router.post("/product/", productsController.createProduct);
+//POST Route for products
+router.post("/", productsController.createProduct);
 
 //Put Route for products collection
 router.put('/:id', productsController.updateProduct);
