@@ -73,7 +73,7 @@ const deleteCategory = async (req, res) => {
       .db()
       .collection('categories') //Still need the collections set up
       .deleteOne({ _id: categoryId });
-    if (response.deleteCount > 0) {
+    if (response.deletedCount > 0) {
       res.status(204).send();
     } else {
       res
