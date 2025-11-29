@@ -71,7 +71,7 @@ const deleteCategory = async (req, res) => {
     const response = await mongodb
       .getDatabase() //getDatabase and db need to be set up as well, the names can be changed if needs be
       .db()
-      .collection() //Still need the collections set up
+      .collection('categories') //Still need the collections set up
       .deleteOne({ _id: categoryId });
     if (response.deleteCount > 0) {
       res.status(204).send();
