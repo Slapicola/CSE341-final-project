@@ -1,4 +1,6 @@
-const mongodb = require('../data/database');
+//We don't have our mongo collections yet
+//Mongo collections added - Emmanuel
+const mongodb = require("../data/database");
 
 //require statements go up here
 const objectId = require("mongodb").ObjectId;
@@ -17,7 +19,7 @@ const getAllProducts = async (req, res) => {
   } catch (err) {
     res.status(500).json({
       message: "Error fetching products",
-      error: err
+      error: err,
     });
   }
 };
@@ -25,7 +27,7 @@ const getAllProducts = async (req, res) => {
 // GET PRODUCT BY ID
 const getProductById = async (req, res) => {
   try {
-    const productId = new ObjectId(req.params.id);
+    const productId = new objectId(req.params.id);
 
     const result = await mongodb
       .getDatabase()
@@ -41,11 +43,10 @@ const getProductById = async (req, res) => {
   } catch (err) {
     res.status(500).json({
       message: "Error fetching product",
-      error: err
+      error: err,
     });
   }
 };
-
 
 //Delete function for products collection
 const deleteProduct = async (req, res) => {
@@ -89,8 +90,12 @@ const createProduct = async (req, res) => {
 });
 
     } else {
-        res.status(500).json(response.error || 'Some error occurred while creating the product.');
-    } 
+      res
+        .status(500)
+        .json(
+          response.error || "Some error occurred while creating the product."
+        );
+    }
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
@@ -99,32 +104,38 @@ const createProduct = async (req, res) => {
 const updateProduct = async (req, res) => {
   try {
     const productId = new objectId(req.params.id);
-    
+
     const productUpdates = {
       productName: req.body.productName,
       description: req.body.description,
       price: req.body.price,
       stock: req.body.stock,
-    }
+    };
 
     const response = await mongodb
       .getDatabase()
       .db()
-      .collection('products')
+      .collection("products")
       .updateOne({ _id: productId }, { $set: productUpdates });
-    
+
     if (response.matchedCount === 0) {
-      return res.status(404).json({ message: 'Product not found' });
+      return res.status(404).json({ message: "Product not found" });
     }
 
     if (response.modifiedCount > 0) {
       res.status(204).send();
     } else {
-      res.status(200).json({ message: 'No changes made to product' });
+      res.status(200).json({ message: "No changes made to product" });
     }
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
 
-module.exports = { deleteProduct, createProduct, updateProduct, getAllProducts, getProductById };
+module.exports = {
+  deleteProduct,
+  createProduct,
+  updateProduct,
+  getAllProducts,
+  getProductById,
+};

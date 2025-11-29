@@ -12,7 +12,7 @@ router.get("/:id", categoryController.getCategoryById);
 router.post('/', categoryController.createCategory);
 
 //delete Route for categories collection
-router.delete("/category/:categoryid", categoryController.deleteCategory);
+router.delete("/:id", categoryController.deleteCategory);
 
 //Put Route for categories collection
 router.put('/:id', categoryController.updateCategory);
