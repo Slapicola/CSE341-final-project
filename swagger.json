@@ -7,10 +7,7 @@
   },
   "host": "cse341-final-project-365b.onrender.com",
   "basePath": "/",
-  "schemes": [
-    "http",
-    "https"
-  ],
+  "schemes": ["http", "https"],
   "paths": {
     "/": {
       "get": {
@@ -99,7 +96,7 @@
         "description": "",
         "parameters": [
           {
-            "name": "productid",
+            "name": "id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -238,7 +235,7 @@
         "description": "",
         "parameters": [
           {
-            "name": "categoryid",
+            "name": "id",
             "in": "path",
             "required": true,
             "type": "string"
