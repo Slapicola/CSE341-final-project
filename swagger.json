@@ -7,7 +7,7 @@
   },
   "host": "cse341-final-project-365b.onrender.com",
   "basePath": "/",
-  "schemes": ["http", "https"],
+  "schemes": ["https", "http"],
   "paths": {
     "/": {
       "get": {
@@ -161,6 +161,7 @@
         }
       }
     },
+
     "/category/": {
       "get": {
         "description": "",
