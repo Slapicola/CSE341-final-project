@@ -5,6 +5,8 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
 const productRoutes = require('./routes/products');
 const categoryRoutes = require('./routes/categories');
+const userRoutes = require('./routes/users');
+const orderRoutes = require('./routes/orders');
 const { initDb } = require('./data/database');
 require('dotenv').config();
 
@@ -29,6 +31,8 @@ initDb((err, db) => {
 
         app.use('/product', productRoutes);
         app.use('/category', categoryRoutes);
+        app.use('/user', userRoutes);
+        app.use('/order', orderRoutes);
 
         app.listen(PORT, () => {
             console.log(`Server is running on http://localhost:${PORT}`);
