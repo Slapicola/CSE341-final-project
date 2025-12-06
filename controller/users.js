@@ -2,6 +2,40 @@
 const mongodb = require("../data/database");
 const objectId = require("mongodb").ObjectId;
 
+// --- GET ALL USERS ---
+const getAllUsers = async (req, res) => {
+  try {
+    const db = mongodb.getDatabase().db();
+    const users = await db.collection("users").find().toArray();
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching users", error });
+  }
+};
+
+// --- GET USER BY ID ---
+const getUserById = async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    if (!objectId.isValid(id)) {
+      return res.status(400).json({ message: "Invalid user ID" });
+    }
+
+    const db = mongodb.getDatabase().db();
+    const user = await db
+      .collection("users")
+      .findOne({ _id: new objectId(id) });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching user", error });
+  }
+};
 
 //Delete function for user collection
 const deleteUser = async (req, res) => {
@@ -59,4 +93,4 @@ const updateUser = async (req, res) => {
   }
 };
 
-module.exports = { deleteUser, updateUser };
+module.exports = { deleteUser, updateUser, getAllUsers, getUserById };

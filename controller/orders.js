@@ -2,6 +2,42 @@
 const mongodb = require("../data/database");
 const objectId = require("mongodb").ObjectId;
 
+
+// --- GET ALL ORDERS ---
+const getAllOrders = async (req, res) => {
+  try {
+    const db = mongodb.getDatabase().db();
+    const orders = await db.collection("orders").find().toArray();
+    res.status(200).json(orders);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching orders", error });
+  }
+};
+
+// --- GET ORDER BY ID ---
+const getOrderById = async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    if (!objectId.isValid(id)) {
+      return res.status(400).json({ message: "Invalid order ID" });
+    }
+
+    const db = mongodb.getDatabase().db();
+    const order = await db
+      .collection("orders")
+      .findOne({ _id: new objectId(id) });
+
+    if (!order) {
+      return res.status(404).json({ message: "Order not found" });
+    }
+
+    res.status(200).json(order);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching order", error });
+  }
+};
+
 //Delete function for orders collection
 const deleteOrder = async (req, res) => {
   try {
@@ -61,4 +97,4 @@ const updateOrder = async (req, res) => {
 };
 
 
-module.exports = { deleteOrder, updateOrder };
+module.exports = { deleteOrder, updateOrder, getAllOrders, getOrderById };
