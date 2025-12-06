@@ -32,3 +32,15 @@ Content-Type: application/json
     "CategoryName": "Electronics",
     "description": "All types of electronic gadgets and accessories."
 }
+
+### GET ALL ORDERS
+GET http://localhost:4000/order
+
+### GET ORDER BY ID
+GET http://localhost:4000/order/ID_AQUI
+
+### GET ALL USERS
+GET http://localhost:4000/user
+
+### GET USER BY ID
+GET http://localhost:4000/user/ID_AQUI
