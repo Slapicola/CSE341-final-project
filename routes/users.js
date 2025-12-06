@@ -3,11 +3,12 @@ const router = express.Router();
 
 const usersController = require("../controller/users");
 const { userValidation, validate } = require("../middleware/validation");
+const { isAuthenticated } = require('../middleware/authenticate');
 
 //delete Route for users collection
 router.delete("/:id", usersController.deleteUser);
 
 //update Route for users collection
-router.put("/:id", userValidation, validate, usersController.updateUser);
+router.put("/:id", isAuthenticated, userValidation, validate, usersController.updateUser);
 
 module.exports = router;
