@@ -18,7 +18,7 @@ const getMongoUri = () => {
   return process.env.MONGODB_URI;
 };
 
-const initDb = async (callback) => {
+const initDb = async (dbName, callback) => {
   try {
     if (database) {
       console.log("Db is already initialized!");
@@ -29,7 +29,7 @@ const initDb = async (callback) => {
     if (!uri) throw new Error("MongoDB URI not found");
 
     const client = await MongoClient.connect(uri);
-    database = client;
+    database = client.db(dbName);
 
     console.log("Database initialized successfully");
     callback(null, database);

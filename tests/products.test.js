@@ -1,7 +1,7 @@
 const request = require("supertest");
 const app = require("../app");
 const { MongoClient } = require("mongodb");
-const { setDatabase } = require("../data/database");
+const { setDatabase, getDatabase } = require("../data/database");
 require("dotenv").config();
 
 let connection;
@@ -29,6 +29,8 @@ test("GET /product → returns array", async () => {
 
 // --- TEST 2: GET PRODUCT BY ID (valid) ---
 test("GET /product/:id → returns single product", async () => {
+  const dbClient = getDatabase();
+  const db = dbClient.db(process.env.cse341Team);
   const mock = { productName: "Test", price: 10, stock: 5 };
   const { insertedId } = await db.collection("products").insertOne(mock);
 

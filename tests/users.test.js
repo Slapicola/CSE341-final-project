@@ -1,7 +1,7 @@
 const request = require("supertest");
 const app = require("../app");
 const { MongoClient } = require("mongodb");
-const { getDatabase } = require("../data/database");
+const { getDatabase, setDatabase } = require("../data/database");
 require("dotenv").config();
 
 let connection;
@@ -12,6 +12,7 @@ beforeAll(async () => {
   globalThis.getDatabase = getDatabase;
   connection = await MongoClient.connect(globalThis.MONGODB_URI);
   db = connection.db(globalThis.getDatabase);
+  setDatabase(connection);
 });
 
 afterAll(async () => {
@@ -27,6 +28,8 @@ test("GET /user → returns array", async () => {
 
 // 2
 test("GET /user/:id → works", async () => {
+  const dbClient = getDatabase();
+  const db = dbClient.db(process.env.cse341Team);
   const mock = { firstName: "Ana", lastName: "Test", email: "ana@test.com" };
   const { insertedId } = await db.collection("users").insertOne(mock);
 
