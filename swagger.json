@@ -5,7 +5,7 @@
     "description": "API documentation for the E-commerce application",
     "version": "1.0.0"
   },
-  "host": "cse341-final-project-365b.onrender.com",
+  "host": "cse341-final-project-0zic.onrender.com",
   "basePath": "/",
   "schemes": [
     "https",
