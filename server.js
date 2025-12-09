@@ -19,7 +19,7 @@ const PORT = process.env.PORT || 4000;
 app
   .use(bodyParser.json())
   .use(session({
-    secret: "secret",
+    secret: process.env.SESSION_SECRET || "secret",
     resave: false ,
     saveUninitialized: true
   }))
@@ -45,6 +45,7 @@ app
     clientID: process.env.GITHUB_CLIENT_ID,
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
     callbackURL: process.env.CALLBACK_URL
+
   },
   function(accessToken, refreshToken, profile, done) {
     return done(null, profile);
