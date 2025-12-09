@@ -2,13 +2,16 @@ const request = require("supertest");
 const { MongoClient } = require("mongodb");
 const app = require("../app");
 const { setDatabase } = require("../data/database");
+require("dotenv").config();
 
 let connection;
 let db;
 
 beforeAll(async () => {
-  connection = await MongoClient.connect(global.__MONGO_URI__);
-  db = connection.db(global.__MONGO_DB_NAME__);
+  globalThis.MONGODB_URI = process.env.MONGODB_URI;
+  globalThis.getDatabase = getDatabase;
+  connection = await MongoClient.connect(globalThis.MONGODB_URI);
+  db = connection.db(globalThis.getDatabase);
 
   setDatabase(connection);
 });
@@ -36,7 +39,7 @@ test("GET /order/:id → works", async () => {
 // 3
 test("GET /order/invalid → 400 or 500", async () => {
   const res = await request(app).get("/order/123");
-  expect([400,500]).toContain(res.statusCode);
+  expect([400, 500]).toContain(res.statusCode);
 });
 
 // 4

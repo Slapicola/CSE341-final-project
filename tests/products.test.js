@@ -2,16 +2,18 @@ const request = require("supertest");
 const app = require("../app");
 const { MongoClient } = require("mongodb");
 const { setDatabase } = require("../data/database");
+require("dotenv").config();
 
 let connection;
 let db;
 
 beforeAll(async () => {
-connection = await MongoClient.connect(global.__MONGO_URI__);
-db = connection.db(global.__MONGO_DB_NAME__);
+  globalThis.MONGODB_URI = process.env.MONGODB_URI;
+  globalThis.getDatabase = getDatabase;
+  connection = await MongoClient.connect(globalThis.MONGODB_URI);
+  db = connection.db(globalThis.getDatabase);
   // Inject DB for the API
-setDatabase(connection);
-
+  setDatabase(connection);
 });
 
 afterAll(async () => {

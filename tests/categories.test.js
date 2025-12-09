@@ -2,15 +2,16 @@ const request = require("supertest");
 const app = require("../app");
 const { MongoClient } = require("mongodb");
 const { getDatabase } = require("../data/database");
+require("dotenv").config();
 
 let connection;
-let db;
+// let db;
 
 beforeAll(async () => {
-connection = await MongoClient.connect(global.__MONGO_URI__);
-db = connection.db(global.__MONGO_DB_NAME__);
-
-
+  globalThis.MONGODB_URI = process.env.MONGODB_URI;
+  // globalThis.getDatabase = getDatabase;
+  connection = await MongoClient.connect(globalThis.MONGODB_URI);
+  // db = connection.db(globalThis.getDatabase);
 });
 
 afterAll(async () => {
@@ -26,6 +27,7 @@ test("GET /category → returns array", async () => {
 
 // 2
 test("GET /category/:id → works", async () => {
+  const db = getDatabase();
   const mock = { CategoryName: "Test Cat", description: "abcde12345" };
   const { insertedId } = await db.collection("categories").insertOne(mock);
 
