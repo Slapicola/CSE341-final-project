@@ -96,5 +96,33 @@ const updateOrder = async (req, res) => {
   }
 };
 
+const createOrder = async (req, res) => {
+  try {
+    const order = {
+      user: req.body.user,
+      products: req.body.products,
+      totalProductAmount: req.body.totalProductAmount,
+      totalPrice: req.body.totalPrice
+    };
 
-module.exports = { deleteOrder, updateOrder, getAllOrders, getOrderById };
+    const response = await mongodb
+      .getDatabase()
+      .db()
+      .collection("orders")
+      .insertOne(order);
+
+    if (response.acknowledged) {
+      res.status(201).json({ 
+        message: 'Order created', 
+        orderId: response.insertedId 
+      });
+    } else {
+      res.status(500).json(response.error || 'Some error occurred while creating the order.');
+    }
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};
+
+
+module.exports = { deleteOrder, updateOrder, getAllOrders, getOrderById, createOrder };
