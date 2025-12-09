@@ -93,4 +93,32 @@ const updateUser = async (req, res) => {
   }
 };
 
-module.exports = { deleteUser, updateUser, getAllUsers, getUserById };
+const createUser = async (req, res) => {
+  try {
+    const user = {
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      email: req.body.email
+    };
+
+    const response = await mongodb
+      .getDatabase()
+      .db()
+      .collection('users')
+      .insertOne(user);
+
+    if (response.acknowledged) {
+      res.status(201).json({ 
+        message: 'User created', 
+        userId: response.insertedId 
+      });
+    } else {
+      res.status(500).json(response.error || 'Some error occurred while creating the user.');
+    }
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};
+
+
+module.exports = { deleteUser, updateUser, getAllUsers, getUserById, createUser };

@@ -17,4 +17,7 @@ router.delete("/:id", ordersController.deleteOrder);
 //update Route for orders collection
 router.put("/:id", isAuthenticated, orderValidation, validate, ordersController.updateOrder);
 
+//create Route for orders collection
+router.post("/", isAuthenticated, orderValidation, validate, ordersController.createOrder);
+
 module.exports = router;
