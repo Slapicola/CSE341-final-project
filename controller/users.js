@@ -5,7 +5,7 @@ const objectId = require("mongodb").ObjectId;
 // --- GET ALL USERS ---
 const getAllUsers = async (req, res) => {
   try {
-    const db = mongodb.getDatabase().db();
+    const db = mongodb.getDatabase();
     const users = await db.collection("users").find().toArray();
     res.status(200).json(users);
   } catch (error) {
@@ -22,7 +22,7 @@ const getUserById = async (req, res) => {
       return res.status(400).json({ message: "Invalid user ID" });
     }
 
-    const db = mongodb.getDatabase().db();
+    const db = mongodb.getDatabase();
     const user = await db
       .collection("users")
       .findOne({ _id: new objectId(id) });
@@ -43,7 +43,6 @@ const deleteUser = async (req, res) => {
     const userId = new objectId(req.params.id);
     const response = await mongodb
       .getDatabase() 
-      .db()
       .collection('users') 
       .deleteOne({ _id: userId });
     if (response.deletedCount > 0) {
@@ -75,7 +74,6 @@ const updateUser = async (req, res) => {
 
     const response = await mongodb
       .getDatabase()
-      .db()
       .collection('users')
       .updateOne({ _id: userId }, { $set: userUpdates });
 
@@ -103,7 +101,6 @@ const createUser = async (req, res) => {
 
     const response = await mongodb
       .getDatabase()
-      .db()
       .collection('users')
       .insertOne(user);
 
