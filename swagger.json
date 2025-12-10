@@ -5,16 +5,35 @@
     "description": "API documentation for the E-commerce application",
     "version": "1.0.0"
   },
-  "host": "cse341-final-project-365b.onrender.com",
+  "host": "cse341-final-project-0zic.onrender.com",
   "basePath": "/",
   "schemes": [
     "https",
     "http"
   ],
+  "tags": [
+    {
+      "name": "Products",
+      "description": "Product management endpoints"
+    },
+    {
+      "name": "Categories",
+      "description": "Category management endpoints"
+    },
+    {
+      "name": "Users",
+      "description": "User management endpoints"
+    },
+    {
+      "name": "Orders",
+      "description": "Order management endpoints"
+    }
+  ],
   "paths": {
     "/": {
       "get": {
-        "description": "",
+        "tags": ["Health Check"],
+        "description": "API health check endpoint",
         "responses": {
           "200": {
             "description": "OK"
@@ -24,7 +43,8 @@
     },
     "/product/": {
       "get": {
-        "description": "",
+        "tags": ["Products"],
+        "description": "Get all products",
         "responses": {
           "200": {
             "description": "OK"
@@ -35,7 +55,8 @@
         }
       },
       "post": {
-        "description": "",
+        "tags": ["Products"],
+        "description": "Create a new product (Authentication Required)",
         "parameters": [
           {
             "name": "body",
@@ -66,6 +87,9 @@
           "400": {
             "description": "Bad Request"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -74,7 +98,8 @@
     },
     "/product/{id}": {
       "get": {
-        "description": "",
+        "tags": ["Products"],
+        "description": "Get a single product by ID",
         "parameters": [
           {
             "name": "id",
@@ -96,7 +121,8 @@
         }
       },
       "delete": {
-        "description": "",
+        "tags": ["Products"],
+        "description": "Delete a product by ID",
         "parameters": [
           {
             "name": "id",
@@ -118,7 +144,8 @@
         }
       },
       "put": {
-        "description": "",
+        "tags": ["Products"],
+        "description": "Update a product by ID (Authentication Required)",
         "parameters": [
           {
             "name": "id",
@@ -157,6 +184,9 @@
           },
           "400": {
             "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
           },
           "404": {
             "description": "Not Found"
@@ -169,7 +199,8 @@
     },
     "/category/": {
       "get": {
-        "description": "",
+        "tags": ["Categories"],
+        "description": "Get all categories",
         "responses": {
           "200": {
             "description": "OK"
@@ -180,7 +211,8 @@
         }
       },
       "post": {
-        "description": "",
+        "tags": ["Categories"],
+        "description": "Create a new category (Authentication Required)",
         "parameters": [
           {
             "name": "body",
@@ -205,6 +237,9 @@
           "400": {
             "description": "Bad Request"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -213,7 +248,8 @@
     },
     "/category/{id}": {
       "get": {
-        "description": "",
+        "tags": ["Categories"],
+        "description": "Get a single category by ID",
         "parameters": [
           {
             "name": "id",
@@ -238,7 +274,8 @@
         }
       },
       "delete": {
-        "description": "",
+        "tags": ["Categories"],
+        "description": "Delete a category by ID",
         "parameters": [
           {
             "name": "id",
@@ -260,7 +297,8 @@
         }
       },
       "put": {
-        "description": "",
+        "tags": ["Categories"],
+        "description": "Update a category by ID (Authentication Required)",
         "parameters": [
           {
             "name": "id",
@@ -294,6 +332,9 @@
           "400": {
             "description": "Bad Request"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "404": {
             "description": "Not Found"
           },
@@ -305,10 +346,49 @@
     },
     "/user/": {
       "get": {
-        "description": "",
+        "tags": ["Users"],
+        "description": "Get all users",
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Users"],
+        "description": "Create a new user (Authentication Required)",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "firstName": {
+                  "example": "John"
+                },
+                "lastName": {
+                  "example": "Doe"
+                },
+                "email": {
+                  "example": "john.doe@example.com"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User created successfully"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
           },
           "500": {
             "description": "Internal Server Error"
@@ -318,7 +398,8 @@
     },
     "/user/{id}": {
       "get": {
-        "description": "",
+        "tags": ["Users"],
+        "description": "Get a single user by ID",
         "parameters": [
           {
             "name": "id",
@@ -343,7 +424,8 @@
         }
       },
       "delete": {
-        "description": "",
+        "tags": ["Users"],
+        "description": "Delete a user by ID",
         "parameters": [
           {
             "name": "id",
@@ -365,7 +447,8 @@
         }
       },
       "put": {
-        "description": "",
+        "tags": ["Users"],
+        "description": "Update a user by ID (Authentication Required)",
         "parameters": [
           {
             "name": "id",
@@ -402,6 +485,9 @@
           "400": {
             "description": "Bad Request"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "404": {
             "description": "Not Found"
           },
@@ -413,10 +499,52 @@
     },
     "/order/": {
       "get": {
-        "description": "",
+        "tags": ["Orders"],
+        "description": "Get all orders",
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Orders"],
+        "description": "Create a new order (Authentication Required)",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user": {
+                  "example": "John Doe"
+                },
+                "products": {
+                  "example": ["productId1", "productId2"]
+                },
+                "totalProductAmount": {
+                  "example": 3
+                },
+                "totalPrice": {
+                  "example": 150000
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Order created successfully"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
           },
           "500": {
             "description": "Internal Server Error"
@@ -426,7 +554,8 @@
     },
     "/order/{id}": {
       "get": {
-        "description": "",
+        "tags": ["Orders"],
+        "description": "Get a single order by ID",
         "parameters": [
           {
             "name": "id",
@@ -451,7 +580,8 @@
         }
       },
       "delete": {
-        "description": "",
+        "tags": ["Orders"],
+        "description": "Delete an order by ID",
         "parameters": [
           {
             "name": "id",
@@ -473,7 +603,8 @@
         }
       },
       "put": {
-        "description": "",
+        "tags": ["Orders"],
+        "description": "Update an order by ID (Authentication Required)",
         "parameters": [
           {
             "name": "id",
@@ -491,7 +622,7 @@
                   "example": "any"
                 },
                 "products": {
-                  "example": "any"
+                  "example": ["product1", "product2"]
                 },
                 "totalProductAmount": {
                   "example": "any"
@@ -512,6 +643,9 @@
           },
           "400": {
             "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
           },
           "404": {
             "description": "Not Found"

@@ -17,4 +17,7 @@ router.delete("/:id", usersController.deleteUser);
 //update Route for users collection
 router.put("/:id", isAuthenticated, userValidation, validate, usersController.updateUser);
 
+//create Route for users collection
+router.post("/", isAuthenticated, userValidation, validate, usersController.createUser);
+
 module.exports = router;
