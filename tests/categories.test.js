@@ -11,9 +11,9 @@ let connection;
 beforeAll(async () => {
   globalThis.MONGODB_URI = process.env.MONGODB_URI;
   globalThis.getDatabase = getDatabase;
-  connection = await MongoClient.connect(globalThis.MONGODB_URI);
-  db = connection.db(globalThis.getDatabase);
-  setDatabase(connection);
+  connection = await MongoClient.connect(process.env.MONGODB_URI);
+    db = connection.db("cse341Team");
+    setDatabase(db);
 });
 
 afterAll(async () => {

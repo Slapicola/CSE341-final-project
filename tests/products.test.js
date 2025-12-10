@@ -13,9 +13,9 @@ let db;
 
 beforeAll(async () => {
   // connect to MongoDB
-  connection = await MongoClient.connect(process.env.MONGODB_URI);
-  db = connection.db("cse341Team");
-  setDatabase(db);
+connection = await MongoClient.connect(process.env.MONGODB_URI);
+    db = connection.db("cse341Team");
+    setDatabase(db);
 });
 
 afterAll(async () => {
