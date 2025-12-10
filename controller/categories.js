@@ -8,7 +8,7 @@ const objectId = require("mongodb").ObjectId;
 // --- GET ALL CATEGORIES ---
 const getAllCategories = async (req, res) => {
   try {
-    const db = mongodb.getDatabase().db();
+    const db = mongodb.getDatabase();
     const categories = await db.collection("categories").find().toArray();
     res.status(200).json(categories);
   } catch (error) {
@@ -25,7 +25,7 @@ const getCategoryById = async (req, res) => {
       return res.status(400).json({ message: "Invalid category ID" });
     }
 
-    const db = mongodb.getDatabase().db();
+    const db = mongodb.getDatabase();
     const category = await db
       .collection("categories")
       .findOne({ _id: new objectId(id) });
@@ -49,7 +49,7 @@ const createCategory = async(req, res) => {
       description: req.body.description,
       createdAt: new Date()
     }
-    const response = await mongodb.getDatabase().db().collection('categories').insertOne(category);
+    const response = await mongodb.getDatabase().collection('categories').insertOne(category);
     if (response.acknowledged) {
           res.status(201).json({ 
     message: "Category created successfully",
@@ -70,7 +70,6 @@ const deleteCategory = async (req, res) => {
     const categoryId = new objectId(req.params.id);
     const response = await mongodb
       .getDatabase() //getDatabase and db need to be set up as well, the names can be changed if needs be
-      .db()
       .collection('categories') //Still need the collections set up
       .deleteOne({ _id: categoryId });
     if (response.deletedCount > 0) {
@@ -98,7 +97,6 @@ const updateCategory = async (req, res) => {
 
     const response = await mongodb
       .getDatabase()
-      .db()
       .collection('categories')
       .updateOne({ _id: categoryId }, { $set: categoryUpdates });
     

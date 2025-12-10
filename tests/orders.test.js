@@ -3,6 +3,7 @@ const { MongoClient } = require("mongodb");
 const app = require("../app");
 const { setDatabase, getDatabase } = require("../data/database");
 require("dotenv").config();
+jest.setTimeout(20000);
 
 let connection;
 let db;

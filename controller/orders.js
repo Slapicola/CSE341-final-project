@@ -6,7 +6,7 @@ const objectId = require("mongodb").ObjectId;
 // --- GET ALL ORDERS ---
 const getAllOrders = async (req, res) => {
   try {
-    const db = mongodb.getDatabase().db();
+    const db = mongodb.getDatabase();
     const orders = await db.collection("orders").find().toArray();
     res.status(200).json(orders);
   } catch (error) {
@@ -23,7 +23,7 @@ const getOrderById = async (req, res) => {
       return res.status(400).json({ message: "Invalid order ID" });
     }
 
-    const db = mongodb.getDatabase().db();
+    const db = mongodb.getDatabase();
     const order = await db
       .collection("orders")
       .findOne({ _id: new objectId(id) });
@@ -44,7 +44,6 @@ const deleteOrder = async (req, res) => {
     const orderId = new objectId(req.params.id);
     const response = await mongodb
       .getDatabase()
-      .db()
       .collection("orders")
       .deleteOne({ _id: orderId });
     if (response.deletedCount > 0) {
@@ -80,7 +79,6 @@ const updateOrder = async (req, res) => {
     }
     const response = await mongodb
       .getDatabase()
-      .db()
       .collection("orders")
       .updateOne({ _id: orderId }, { $set: orderUpdates });
     if (response.matchedCount === 0) {
@@ -107,7 +105,6 @@ const createOrder = async (req, res) => {
 
     const response = await mongodb
       .getDatabase()
-      .db()
       .collection("orders")
       .insertOne(order);
 
