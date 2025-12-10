@@ -6,7 +6,7 @@ const doc = {
         description: 'API documentation for the E-commerce application',
     },
     host: 'cse341-final-project-0zic.onrender.com',
-    schemes: ['http', 'https'],
+    schemes: ['https', 'http'],
 };
 
 const outputFile = './swagger.json';
