@@ -10,7 +10,6 @@ const getAllProducts = async (req, res) => {
   try {
     const result = await mongodb
       .getDatabase()
-      .db()
       .collection("products")
       .find()
       .toArray();
@@ -27,11 +26,14 @@ const getAllProducts = async (req, res) => {
 // GET PRODUCT BY ID
 const getProductById = async (req, res) => {
   try {
+    if (!objectId.isValid(req.params.id)) {
+      return res.status(400).json({ message: "Invalid product ID" });
+    }
+    
     const productId = new objectId(req.params.id);
 
     const result = await mongodb
       .getDatabase()
-      .db()
       .collection("products")
       .findOne({ _id: productId });
 
@@ -54,7 +56,6 @@ const deleteProduct = async (req, res) => {
     const productId = new objectId(req.params.id);
     const response = await mongodb
       .getDatabase() //getDatabase and db have already been added to the mongoDB URI
-      .db()
       .collection("products") //Products collections
       .deleteOne({ _id: productId });
     if (response.deletedCount > 0) {
@@ -82,7 +83,7 @@ const createProduct = async (req, res) => {
     stock: req.body.stock,
     createdAt: new Date()
   }
-  const response = await mongodb.getDatabase().db().collection('products').insertOne(product);
+  const response = await mongodb.getDatabase().collection('products').insertOne(product);
   if (response.acknowledged) {
         res.status(201).json({ 
   message: "Product created successfully",
@@ -114,7 +115,6 @@ const updateProduct = async (req, res) => {
 
     const response = await mongodb
       .getDatabase()
-      .db()
       .collection("products")
       .updateOne({ _id: productId }, { $set: productUpdates });
 
