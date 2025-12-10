@@ -11,9 +11,9 @@ let connection;
 beforeAll(async () => {
   globalThis.MONGODB_URI = process.env.MONGODB_URI;
   globalThis.getDatabase = getDatabase;
-  connection = await MongoClient.connect(process.env.MONGODB_URI);
-    db = connection.db("cse341Team");
-    setDatabase(db);
+  connection = await MongoClient.connect(globalThis.MONGODB_URI);
+  db = connection.db(globalThis.getDatabase);
+  setDatabase(connection);
 });
 
 afterAll(async () => {
@@ -29,9 +29,6 @@ test("GET /category → returns array", async () => {
 
 // 2
 test("GET /category/:id → works", async () => {
-  const dbClient = getDatabase();
-  const db = dbClient.db(process.env.cse341Team);
-
   const mock = { CategoryName: "Test Cat", description: "abcde12345" };
   const { insertedId } = await db.collection("categories").insertOne(mock);
 
